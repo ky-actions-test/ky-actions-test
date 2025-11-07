@@ -20,7 +20,8 @@ jobs:
           # ⚠️ 실패 테스트를 원한다면 `exit 1`을 추가해보세요
 
       - name: check output
-        run: echo "결과: ${{ steps.make-result.outputs.value }}"
+        run: |
+          echo "결과: ${{ steps.make-result.outputs.value }}"
 
   # ─────────────────────────────
   # 📦 2️⃣ success 조건
