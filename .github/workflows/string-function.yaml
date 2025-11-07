@@ -13,3 +13,11 @@ jobs:
       - name: startswith test
         if: startsWith('github actions','test')
         run: echo 'test'
+
+      - name: endswith ions
+        if: endsWith('github actions','ions')
+        run: echo 'git'
+
+      - name: endswith test
+        if: endsWith('github actions','test')
+        run: echo 'test'
