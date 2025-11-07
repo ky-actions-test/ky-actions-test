@@ -1,64 +1,22 @@
-name: if-and-output
+name: if-1
 
-on: push
+on:
+  push:
+  workflow_dispatch: 
 
 jobs:
-  # ─────────────────────────────
-  # 🧱 1️⃣ create-output Job
-  # ─────────────────────────────
-  create-output:
+  job1:
     runs-on: ubuntu-latest
-    outputs:
-      result: ${{ steps.make-result.outputs.value }}
+    if: github.event_name=='push'
 
     steps:
-      - name: make result
-        id: make-result
-        run: |
-          echo "value=ok" >> $GITHUB_OUTPUT
-          # ✅ 정상적인 결과를 가정
-          # ⚠️ 실패 테스트를 원한다면 `exit 1`을 추가해보세요
-
-      - name: check output
-        run: |
-          echo "결과: ${{ steps.make-result.outputs.value }}"
-
-  # ─────────────────────────────
-  # 📦 2️⃣ success 조건
-  # ─────────────────────────────
-  on-success:
-    needs: [create-output]
+      - name: get event name
+        run: echo ${{ github.event_name }}
+  
+  job2:
     runs-on: ubuntu-latest
-    if: ${{ success() }}                   # ✅ 이전 Job이 성공했을 때만 실행
-    steps:
-      - run: echo "✅ 성공 시 실행됩니다. result=${{ needs.create-output.outputs.result }}"
+    if: github.event_name !='push'
 
-  # ─────────────────────────────
-  # ❌ 3️⃣ failure 조건
-  # ─────────────────────────────
-  on-failure:
-    needs: [create-output]
-    runs-on: ubuntu-latest
-    if: ${{ failure() }}                   # ❌ 이전 Job이 실패했을 때만 실행
     steps:
-      - run: echo "❌ 실패 시 실행됩니다."
-
-  # ─────────────────────────────
-  # 🚫 4️⃣ cancelled 조건
-  # ─────────────────────────────
-  on-cancelled:
-    needs: [create-output]
-    runs-on: ubuntu-latest
-    if: ${{ cancelled() }}                 # 🚫 워크플로가 중단(취소)되었을 때 실행
-    steps:
-      - run: echo "🚫 취소 시 실행됩니다."
-
-  # ─────────────────────────────
-  # ♻️ 5️⃣ always 조건
-  # ─────────────────────────────
-  always-run:
-    needs: [create-output]
-    runs-on: ubuntu-latest
-    if: ${{ always() }}                    # ♻️ 성공/실패 관계없이 항상 실행
-    steps:
-      - run: echo "♻️ 항상 실행됩니다."
+      - name: get event name
+        run: echo ${{ github.event_name }}
