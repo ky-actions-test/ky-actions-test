@@ -9,3 +9,7 @@ jobs:
       - name: startswith git
         if: startsWith('github actions','git')
         run: echo 'git'
+
+      - name: startswith test
+        if: startsWith('github actions','test')
+        run: echo 'test'
