@@ -23,3 +23,11 @@ jobs:
     if: ${{ success() }}
     steps:
       - run: echo "성공시 실행됩니다. result=${{needs.create-output.outputs.result}}"
+  
+  
+  on-failure:
+    needs: [create-output]
+    runs-on: ubuntu-latest
+    if: ${{ failure() }}
+    steps:
+      - run: echo "실패시 실행됩니다."
