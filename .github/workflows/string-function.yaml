@@ -1,0 +1,11 @@
+name: string-function
+
+on: push
+
+jobs:
+  string-function:
+    runs-on: ubuntu-latest
+    steps:
+      - name: startswith git
+        if: startsWith('github actions','git')
+        run: echo 'git'
