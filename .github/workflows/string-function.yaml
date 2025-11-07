@@ -16,8 +16,16 @@ jobs:
 
       - name: endswith ions
         if: endsWith('github actions','ions')
-        run: echo 'git'
+        run: echo 'ions'
 
       - name: endswith test
         if: endsWith('github actions','test')
+        run: echo 'test'
+
+      - name: contains act
+        if: contains('github actions','act')
+        run: echo 'act'
+
+      - name: contains test
+        if: contains('github actions','test')
         run: echo 'test'
