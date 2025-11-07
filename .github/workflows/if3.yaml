@@ -31,3 +31,11 @@ jobs:
     if: ${{ failure() }}
     steps:
       - run: echo "실패시 실행됩니다."
+
+
+  on-cancelled:
+    needs: [create-output]
+    runs-on: ubuntu-latest
+    if: ${{ cancelled() }}
+    steps:
+      - run: echo "취소시 실행됩니다."
