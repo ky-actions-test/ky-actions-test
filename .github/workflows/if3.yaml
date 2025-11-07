@@ -39,3 +39,9 @@ jobs:
     if: ${{ cancelled() }}
     steps:
       - run: echo "취소시 실행됩니다."
+  always-run:
+    needs: [create-output]
+    runs-on: ubuntu-latest
+    if: ${{ always() }}
+    steps:
+      - run: echo "항상 실행됩니다."
